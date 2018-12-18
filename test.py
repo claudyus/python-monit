@@ -18,8 +18,7 @@ class TestMonitClass(unittest.TestCase):
     def test_dummy(self, mock):
         mock.get('http://localhost:2812/_status', text=self.text)
         mon = Monit()
-        print mon
-        return 0
+        assert "Process" in str(mon['agent-1'])
 
 if __name__ == '__main__':
     unittest.main()

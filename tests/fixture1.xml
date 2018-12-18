@@ -97,7 +97,7 @@
         <write/>
     </service>
     <service type="5">
-        <name>gw-00800000A0001C1E</name>
+        <name>gw-0000</name>
         <collected_sec>1545156803</collected_sec>
         <collected_usec>726524</collected_usec>
         <status>0</status>
