@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
 Interface to the Monit system manager and monitor (http://mmonit.com/monit/)
@@ -32,7 +33,7 @@ class Monit(dict):
         if username:
             self.s.auth = requests.auth.HTTPBasicAuth(username, password)
         self.update()
-    
+
     def update(self):
         """
         Update Monit deamon and services status.
@@ -53,7 +54,7 @@ class Monit(dict):
             if self[serv.name].monitorState == 2:
                 time.sleep(1)
                 return Monit.update(self)
-            
+
     class Service:
         """
         Describes a Monit service, i.e. a monitored resource.
@@ -84,21 +85,21 @@ class Monit(dict):
 
         def start(self):
             self._action('start')
-        
+
         def restart(self):
             self._action('restart')
-        
+
         def stop(self):
             self._action('stop')
-        
+
         def monitor(self, monitor=True):
             if not monitor:
                 return self.unmonitor()
             self._action('monitor')
-            
+
         def unmonitor(self):
             self._action('unmonitor')
-        
+
         def _action(self, action):
             url = self.daemon.baseurl + '/' + self.name
             if self.daemon.s.auth:
@@ -108,7 +109,7 @@ class Monit(dict):
             response = self.daemon.s.post(url, data=postdata)
             response.raise_for_status()
             self.daemon.update()
-        
+
         def __repr__(self):
             repr = self.type.capitalize()
             if not self.running is None:
