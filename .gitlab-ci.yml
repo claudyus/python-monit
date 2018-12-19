@@ -1,0 +1,6 @@
+
+test:
+  image: python:2-alpine
+  script:
+    - pip install -r requirements-dev.txt
+    - python test.py
