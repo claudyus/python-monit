@@ -97,6 +97,23 @@ class Monit(dict):
             self.monitored = bool(int(xml.find('monitor').text))
             self.pendingaction = bool(int(xml.find('pendingaction').text))
             self.monitorState = int(xml.find('monitor').text)
+            # for service type "system" parse extra fields
+            if self.type == 'system':
+                xml = xml.find('system')
+                self.load = [
+                    float(xml.find('load')[0].text),
+                    float(xml.find('load')[1].text),
+                    float(xml.find('load')[2].text)
+                ]
+
+                self.cpu = self.memory = self.swap = {}
+                for child in xml.iter('cpu'):
+                    print child
+                    self.cpu[child.tag] = child.text
+                for child in xml.iter('memory'):
+                    self.memory[child.tag] = child.text
+                for child in xml.iter('swap'):
+                    self.swap[child.tag] = child.text
 
         def start(self):
             self._action('start')

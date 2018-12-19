@@ -21,6 +21,21 @@ class TestMonitClass(unittest.TestCase):
         assert "type" in mon['agent-1'].__dict__
         assert mon['agent-1'].type == "process"
 
+    def test_extra_fields_system(self, mock):
+        mock.get('http://localhost:2812/_status', text=self.text)
+        mon = Monit()
+        print mon['gw-0000']
+        # TODO: really unstable interface here !!!
+        assert mon['gw-0000'].type == "system"
+        assert 'load' in mon['gw-0000']
+        assert mon['gw-0000'].load is list
+        assert 'cpu' in mon['gw-0000']
+        assert mon['gw-0000'].cpu is dict
+        assert 'memory' in mon['gw-0000']
+        assert mon['gw-0000'].memory is dict
+        assert 'swap' in mon['gw-0000']
+        assert mon['gw-0000'].swap is dict
+
     def test_platform(self, mock):
         mock.get('http://localhost:2812/_status', text=self.text)
         mon = Monit()
