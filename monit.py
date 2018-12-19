@@ -43,6 +43,10 @@ class Monit(dict):
         response.raise_for_status()
         from xml.etree.ElementTree import XML
         root = XML(response.text)
+        # parse platform info
+        platform = Monit.Platform(root.find('platform'))
+        self['platform'] = platform
+        # parse services inside response
         for serv_el in root.iter('service'):
             serv = Monit.Service(self, serv_el)
             self[serv.name] = serv
@@ -54,6 +58,17 @@ class Monit(dict):
             if self[serv.name].monitorState == 2:
                 time.sleep(1)
                 return Monit.update(self)
+
+    class Platform:
+        """
+        Describes the Monit platform
+        """
+        def __init__(self, xml):
+            for child in xml:
+                setattr(self, child.tag, child.text)
+
+        def __repr__(self):
+            return "<Platform " + str(self.__dict__) + ">"
 
     class Service:
         """

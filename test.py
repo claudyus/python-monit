@@ -21,9 +21,12 @@ class TestMonitClass(unittest.TestCase):
         assert "type" in mon['agent-1'].__dict__
         assert mon['agent-1'].type == "process"
 
+    def test_platform(self, mock):
         mock.get('http://localhost:2812/_status', text=self.text)
         mon = Monit()
-        assert "Process" in str(mon['agent-1'])
+        assert  mon['platform'].name == 'Linux'
+        assert  mon['platform'].release == '3.12.70'
+        assert  'memory' in mon['platform'].__dict__
 
 if __name__ == '__main__':
     unittest.main()
