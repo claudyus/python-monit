@@ -125,13 +125,16 @@ class Monit(dict):
             response.raise_for_status()
             self.daemon.update()
 
-        def __repr__(self):
+        def info(self):
             repr = self.type.capitalize()
             if not self.running is None:
                 repr += self.running and ', running' or ', stopped'
             if not self.monitored is None:
                 repr += self.monitored and ', monitored' or ', not monitored'
             return repr
+
+        def __repr__(self):
+            return "<Service " + str(self.__dict__) + ">"
 
 if __name__ == "__main__":
     import doctest
