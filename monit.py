@@ -137,5 +137,4 @@ class Monit(dict):
             return "<Service " + str(self.__dict__) + ">"
 
 if __name__ == "__main__":
-    import doctest
-    doctest.testmod()
+    print Monit(username='admin', password='monit')
