@@ -15,7 +15,12 @@ class TestMonitClass(unittest.TestCase):
         with open('tests/fixture1.xml', 'r') as file:
             self.text = file.read().replace('\n', '')
 
-    def test_dummy(self, mock):
+    def test_process(self, mock):
+        mock.get('http://localhost:2812/_status', text=self.text)
+        mon = Monit()
+        assert "type" in mon['agent-1'].__dict__
+        assert mon['agent-1'].type == "process"
+
         mock.get('http://localhost:2812/_status', text=self.text)
         mon = Monit()
         assert "Process" in str(mon['agent-1'])
