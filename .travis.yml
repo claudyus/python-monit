@@ -1,15 +1,16 @@
 language: python
-python: ["2.7"]
+python:
+- '2.7'
 
 install:
-  - pip install -r requirements-dev.txt
+- pip install -r requirements-dev.txt
 
 script: python test.py
 
-# RTFM: https://docs.travis-ci.com/user/deployment/pypi/
-# deploy:
-#   provider: pypi
-#   user: "Your username"
-#   password: "Your password"
-#   on:
-#     tags: true
+deploy:
+  provider: pypi
+  user: claudyus
+  password:
+    secure: sZwWACdneyeJJJu1pe2leLKWaqR4g0ZnPM9CzB7bmz27CzxAO7S4AzL3keS82lQ7MzWVet16eeojKscHQn67ESMBEniu4a1A6d9RPJ6J+MFkhUl8gB1kvXruGy2YSe/40j97z9pJAe1E8RjHw4enUSAR1rElQs9zh9+Kfs3W9nuyoHS2ihiIW4n/mXwwVX2ikgAf0qwPDLJJmkgMPOZet2VjcTLSiviOZdBkHmxFe7d1Zkw45X4LVjTc0YcCASwAGvjCxzZljkrFqvBWlfcN4rh9IFWaAVUZtRMrlTRr8r9fT2ThcNEemQ6+8zb8j+JB0he+/WTh0Xehxm8TsnRfRrc2ItpqHU5U7NLFI5c2P8zPmZsdfdbUmDt4EpGjGDRcTgLIOFsE4yHwzipFITybgyIAy/q8/KTTVta3+oBf502NVMFJB78YYZp+V10YJMFRimbPg4R0zaT0n3Y+CvNyzSxnMRwD3Q4ej2ckAdSd/ERN8u4ErOZvSCc6NccDDccB6LopnHAp7qB1TGcITheL3Lve1fSDueAcMnT1AlHalmvAVAi/1rKMZdu3pe84ShEAfthwS9WfJZ7/M6pQCiRfRIuwjyoIHVsNFADbdnRSHLHsGf0SrZ5VDbRUZ6uvQfCaSRJflrLRQAOZa6lxDlFSpgnv8h+KH2OHNHDk6tCM5vw=
+  on:
+    tags: true
